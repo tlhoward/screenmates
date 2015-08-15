@@ -1,9 +1,13 @@
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JWindow;
 import javax.swing.Timer;
 
@@ -14,10 +18,10 @@ public class Digimon extends JWindow {
 	public void initDigimon() {
 		
 		JPanel contentPane = (JPanel) getContentPane();
-		Screenmate scrnmt = new Screenmate();
 		loadGuilmon();
+		initComponents();
 
-		// Set window to transparent
+		// Set window properties
 		getRootPane().putClientProperty("Window.shadow", false);
 		setBackground(new Color(0,0,0,0));
 		setAlwaysOnTop(true);
@@ -32,32 +36,28 @@ public class Digimon extends JWindow {
 			    - GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight());
 		
 		x = (int) screen.getMaxX() - idleStandingImage.getIconWidth();
-		y = (int) screen.getMaxY() - idleStandingImage.getIconHeight() - taskbarheight;
+		y = (int) screen.getMaxY() - idleStandingImage.getIconHeight() - taskbarheight;		
 		
-
-		
-		
-		scrnmt.initComponents();
 		setSize(idleStandingImage.getIconWidth(), idleStandingImage.getIconHeight());
-//		setLocationRelativeTo(null);
-		
-		idleStandingImage.setImageObserver(this);
-		
-		JLabel imageLabel = new JLabel(idleStandingImage);
-
-		contentPane.add(imageLabel);
-
-		
 		setLocation(x, y);
 	}
 	
 
-
-	
 	private void loadGuilmon() {
-		idleStandingImage = new ImageIcon(getClass().getResource("images/stand_pixel.gif"));
+		idleStandingImage = new ImageIcon(getClass().getResource("guilmon_stand(idle).gif"));
 	}
 	
+	
+    protected void initComponents() {
+        imageLabel = new JLabel(idleStandingImage);		// set initial image to imageLabel
+        CustomPopupMenu popup = new CustomPopupMenu();
+        popup.addPopupListenerToImage(imageLabel);		// add popup menu to imageLabel
+        getContentPane().add(imageLabel);
+
+        pack();
+    }
+	
+
 	// variables declaration
 	private ImageIcon idleStandingImage;		// idle while standing
 	private ImageIcon idleSittingImage;			// idle while sitting
@@ -66,6 +66,5 @@ public class Digimon extends JWindow {
 	private JLabel imageLabel;
 	
 	private int x, y;
-	private int ox, oy;
 	
 }

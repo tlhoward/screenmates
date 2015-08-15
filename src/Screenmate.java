@@ -33,49 +33,7 @@ public class Screenmate extends JWindow {
 		});
 
 	}
-	
-	private class FormListener implements java.awt.event.MouseListener {
-		FormListener() {}
-	
-		public void mouseClicked(java.awt.event.MouseEvent anEvent) {
-			if (anEvent.getSource() == imageLabel) {
-				imageClicked(anEvent);
-			}
-		}
-	
-	    public void mouseEntered(java.awt.event.MouseEvent evt) {
-	    }
-	
-	    public void mouseExited(java.awt.event.MouseEvent evt) {
-	    }
-	
-	    public void mousePressed(java.awt.event.MouseEvent evt) {
-	    }
-	
-	    public void mouseReleased(java.awt.event.MouseEvent evt) {
-	    }
-	}
-	
-    protected void initComponents() {
-
-        imageLabel = new javax.swing.JLabel();
-
-        FormListener formListener = new FormListener();
-
-        imageLabel.addMouseListener(formListener);
-        getContentPane().add(imageLabel, java.awt.BorderLayout.CENTER);
-
-        pack();
-    }
     
-	
-	/* Right now right click will exit. Later it'll bring up a menu
-	 * that has the option to exit as well as other stuff.
-	 */
-	private void imageClicked(java.awt.event.MouseEvent anEvent) {
-		if (anEvent.getButton() == MouseEvent.BUTTON3) // BUTTON3 is right click
-			System.exit(0);
-	}
 
 	
 	// variables declaration
