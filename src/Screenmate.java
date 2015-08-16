@@ -1,10 +1,6 @@
 import java.awt.*;
-import java.awt.event.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JWindow;
-import javax.swing.Timer;
 
 
 /*
@@ -15,30 +11,30 @@ import javax.swing.Timer;
  * desktop. I'll have him drop in later. 
  * 
  * Right now he only stands and sits. I need to figure out how
- * to draw his walk cycle. Right click Guilmon to end program.
+ * to draw his walk cycle. Right click to bring up popup menu
+ * and select Exit to end program.
  */
 
 public class Screenmate extends JWindow {
 	
+	static Digimon guilmon;
+	
 	public static void main(String[] args) {
 		
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				
-				Digimon guilmon = new Digimon();
+			public void run() {			
+				guilmon = new Digimon();
 				guilmon.initDigimon();
-				guilmon.setVisible(true);  // WHY?!
-				
+				guilmon.setVisible(true);
+				start();
 			}
 		});
-
 	}
-    
-
 	
-	// variables declaration
-    private javax.swing.JLabel imageLabel;
-    
-    private int pos;		// digimon's position
-    private int imgNo;		// image number
+	public static void start() {
+		DigimonActions guilmonActions = new DigimonActions(guilmon);
+		guilmonActions.idleWalk();
+	}
+	
+	private int sleepTime;
 }

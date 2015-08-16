@@ -10,11 +10,18 @@ import javax.swing.JPopupMenu;
 
 
 public class CustomPopupMenu extends JPopupMenu {
-	JMenuItem exitOption;
-	JMenuItem fillerOption;
 	JPopupMenu popup;
 	
 	public CustomPopupMenu() {
+		// Initialize various menu options
+		JMenuItem statsOption = new JMenuItem("View Stats");
+		JMenuItem feedOption = new JMenuItem("Feed");
+		JMenuItem playOption = new JMenuItem("Play");
+		JMenuItem sleepOption = new JMenuItem("Sleep");
+		JMenuItem optionsOption = new JMenuItem("Options");
+		JMenuItem exitOption = new JMenuItem("Exit");
+		
+		// Create Action Listener
 		ActionListener menuListener = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				JMenuItem source = (JMenuItem)(event.getSource());
@@ -23,13 +30,19 @@ public class CustomPopupMenu extends JPopupMenu {
 			}
 		};
 		
-		// construct and add menu item to popup menu
-		exitOption = new JMenuItem("Exit");
-		fillerOption = new JMenuItem("Space Filler");
+		// Add action listeners and place them in menu
+		statsOption.addActionListener(menuListener);
+		feedOption.addActionListener(menuListener);
+		playOption.addActionListener(menuListener);
+		sleepOption.addActionListener(menuListener);
 		exitOption.addActionListener(menuListener);
-		fillerOption.addActionListener(menuListener);
+		add(statsOption);
+		add(feedOption);
+		add(playOption);
+		add(sleepOption);
+		addSeparator();
+		add(optionsOption);
 		add(exitOption);
-		add(fillerOption);
 	}
 		
 	protected class PopupListener extends MouseAdapter {
