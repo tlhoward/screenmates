@@ -17,7 +17,7 @@ public class Digimon extends JWindow {
 	// Initializes a digimon, though it's only guilmon right now
 	protected void initDigimon() {
 		
-		loadGuilmon();
+		loadDigimonImage("guilmon_stand(idle).gif");
 		initComponents();
 
 		// Set window properties
@@ -40,8 +40,8 @@ public class Digimon extends JWindow {
 		setLocation(x, y);
 	}
 	
-	private void loadGuilmon() {
-		idleStandingImage = new ImageIcon(getClass().getResource("guilmon_stand(idle).gif"));
+	private void loadDigimonImage(String string) {
+		idleStandingImage = new ImageIcon(getClass().getResource(string));
 	}
 	
     private void initComponents() {
@@ -80,6 +80,7 @@ public class Digimon extends JWindow {
 	// variables declaration
 	private ImageIcon idleStandingImage;		// idle while standing
 	private ImageIcon idleSittingImage;			// idle while sitting
+	private ImageIcon walkingImage;
 	private Rectangle digimonBounds = new Rectangle();
 	private Timer timer;
 	private JLabel imageLabel;

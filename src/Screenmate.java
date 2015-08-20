@@ -10,8 +10,9 @@ import javax.swing.JWindow;
  * Guilmon will appear on the bottom right corner of your
  * desktop. I'll have him drop in later. 
  * 
- * Right now he only stands and sits. I need to figure out how
- * to draw his walk cycle. Right click to bring up popup menu
+ * Now he walks left and stands there. Eh.
+ * 
+ * Right click to bring up popup menu
  * and select Exit to end program.
  */
 
