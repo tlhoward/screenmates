@@ -22,7 +22,10 @@ public class DigimonActions {
 		newX = rand.nextInt(1600);
 		timer = new Timer(delay, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_walk.gif")));
+				if(newX >= x)
+					digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_walk_right.gif")));
+				else
+					digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_walk.gif")));
 				idleWalkHelper(evt);
 			}
 		});
@@ -36,31 +39,33 @@ public class DigimonActions {
 		// also switch directions every so often. have that be random too
 		// walk different distances as well. set x as random number, keep y same
 
-
-
 	
 		// if digimon's new location is larger than old location, then it will need
 		// to walk right. add to x until it reaches new position
 		if(newX > x) {
-			x += 30;
+			x += 25;
 			digimon.setNewLocation(x, y);
-			if( newX <= x) {
+			if( newX < x) {
 				((Timer)evt.getSource()).stop();
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
+				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle)_right.gif")));
 			}
 		}
 		else if (newX < x) {
-			x -= 30;
+			x -= 25;
 			digimon.setNewLocation(x, y);
-			if( newX >= x) {
+			if( newX > x) {
 				((Timer)evt.getSource()).stop();
 				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
 			}
+
 		}
-			
-
-
+		else { // new position ends up being the same as old position. just have him stand there.
+			((Timer)evt.getSource()).stop();
+			digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
+		}
 	}
+	
+
 	
 	protected void idleStand() {
 		digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));

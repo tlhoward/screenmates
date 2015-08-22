@@ -1,6 +1,10 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JWindow;
+import javax.swing.Timer;
 
 
 /*
@@ -34,7 +38,16 @@ public class Screenmate extends JWindow {
 	
 	public static void start() {
 		DigimonActions guilmonActions = new DigimonActions(guilmon);
-		guilmonActions.idleWalk();
+		
+		int delay = 15000;
+		Timer timer = new Timer(delay, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				guilmonActions.idleWalk();
+			}
+		});
+		timer.setRepeats(true);
+		timer.start();
+			
 	}
 	
 	private int sleepTime;
