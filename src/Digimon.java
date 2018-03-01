@@ -1,7 +1,10 @@
 import java.awt.*;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -48,10 +51,14 @@ public class Digimon extends JWindow {
     	contentPane = (JPanel) getContentPane();
         imageLabel = new JLabel(idleStandingImage);		// set initial image to imageLabel
         CustomPopupMenu popup = new CustomPopupMenu();
-        popup.addPopupListenerToImage(imageLabel);		// add popup menu to imageLabel
+        popup.addPopupListenerToImage(imageLabel);		// add mouse listener to imageLabel
         contentPane.add(imageLabel);
 
         pack();
+    }
+    
+    protected JLabel returnImageLabel() {
+    	return imageLabel;
     }
 	
     protected int returnCurrentX() {
@@ -88,4 +95,12 @@ public class Digimon extends JWindow {
 	
 	private int x, y;
 	
+}
+
+class SavedState implements Serializable {
+	Digimon digimon;
+	
+	public SavedState (Digimon digimon) {
+		this.digimon = digimon;
+	}
 }

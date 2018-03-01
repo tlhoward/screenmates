@@ -1,10 +1,21 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.Timer;
+import javax.swing.event.MouseInputAdapter;
 
+import java.awt.Component;
+
+/* Will hopefully have various actions the digimon will do. 
+ * 
+ * Also houses behavior when mouse clicks and drags the image. Ideally.
+ */
 
 public class DigimonActions {
 	Digimon digimon = new Digimon();
@@ -13,6 +24,8 @@ public class DigimonActions {
 		digimon = digi;
 		y = digimon.returnCurrentY();
 		x = digimon.returnCurrentX();
+		MyListener mouseListener = new MyListener(digi.returnImageLabel(), digimon);
+		digi.returnImageLabel().addMouseListener(mouseListener);
 	}
 	
 	protected void idleWalk() {
@@ -65,8 +78,6 @@ public class DigimonActions {
 		}
 	}
 	
-
-	
 	protected void idleStand() {
 		digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
 	}
@@ -77,10 +88,75 @@ public class DigimonActions {
 		//digimon.setDigimonImage(image);
 	}
 	
+	
+	
+	/*
+	 * HERE IS THE MOUSELISTENER STUFF
+	 * 
+	 * SCREAMING A LOT
+	 * 
+	 * THIS IS WHERE I MESSED UP LAST TIME
+	 * 
+	 * This is where we're supposed to try and drag the little digimon across the screen,
+	 * but cant figure out out god
+	 */
+	
+	protected class MyListener extends Component implements MouseListener, MouseMotionListener {
+		
+		JLabel imageLabel;
+		Digimon digi;
+		
+		MyListener(JLabel il, Digimon digim) {
+			digi = digim;
+			imageLabel = il;
+		}
+		
+		public void mouseClicked(MouseEvent anEvent) {
+/*	if (anEvent.getSource() == imageLabel
+					&& anEvent.getButton() == MouseEvent.BUTTON1) {
+			x = 700;
+			y = 700;
+				digimon.setNewLocation(x, y);
+	}
+*/		}
+	
+	    public void mouseEntered(MouseEvent anEvent) {
+	    }
+	
+	    public void mouseExited(MouseEvent anEvent) {
+	    }
+	
+	    public void mousePressed(MouseEvent anEvent) {
+
+	    }
+	
+	    public void mouseReleased(MouseEvent anEvent) {
+	    }
+	    
+	    public void mouseDragged(MouseEvent anEvent) {
+	    	dragX = anEvent.getX();
+	    	dragY = anEvent.getY();
+	    	digimon.setNewLocation(dragX, dragY);
+	    	repaint();
+	    }
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+	}
+	
+	
+	
 	private Random rand;
 	private int newX;
+	private int newY;
 	private int delay;
 	private Timer timer;
 	private int x;
-	final int y;
+	private int y;
+	private int dragX;
+	private int dragY;
+	private boolean leftClickPress = false;
 }

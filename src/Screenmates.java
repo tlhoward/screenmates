@@ -1,6 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JWindow;
@@ -20,9 +25,10 @@ import javax.swing.Timer;
  * and select Exit to end program.
  */
 
-public class Screenmate extends JWindow {
+public class Screenmates extends JWindow {
 	
 	static Digimon guilmon;
+	static Status stats;
 	
 	public static void main(String[] args) {
 		
@@ -30,6 +36,7 @@ public class Screenmate extends JWindow {
 			public void run() {			
 				guilmon = new Digimon();
 				guilmon.initDigimon();
+//				stats.setNewState();
 				guilmon.setVisible(true);
 				start();
 			}
@@ -51,4 +58,18 @@ public class Screenmate extends JWindow {
 	}
 	
 	private int sleepTime;
+	
+    private void SaveDigimonState() {
+    	try {
+    		SavedState state = new SavedState(guilmon);
+    		OutputStream file = new FileOutputStream("screenmate.mine");
+    	} catch (IOException e) {
+    		e.printStackTrace();
+    	}
+    }
+    
+    private void LoadDigimonState() {
+    	SavedState state;
+    	InputStream file;
+    }
 }

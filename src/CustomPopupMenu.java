@@ -7,10 +7,28 @@ import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.event.MouseInputAdapter;
+
+import javax.swing.JOptionPane;
+import javax.swing.JDialog;
+import javax.swing.JButton;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
+import javax.swing.JFrame;
 
 
 public class CustomPopupMenu extends JPopupMenu {
 	JPopupMenu popup;
+	JFrame frame;
+	static Status stats;
 	
 	public CustomPopupMenu() {
 		// Initialize various menu options
@@ -27,6 +45,9 @@ public class CustomPopupMenu extends JPopupMenu {
 				JMenuItem source = (JMenuItem)(event.getSource());
 				if(source == exitOption)
 					System.exit(0);
+				else if(source == statsOption) {
+					showStateWindow();
+				}
 			}
 		};
 		
@@ -55,21 +76,10 @@ public class CustomPopupMenu extends JPopupMenu {
 
 		public void mouseClicked(MouseEvent anEvent) {
 			if (anEvent.getSource() == imageLabel) { 	// if image is clicked, show pop up
-				showPopup(anEvent);
+				showPopupMenu(anEvent);
 			}
 		}
 	
-	    public void mouseEntered(MouseEvent anEvent) {
-	    }
-	
-	    public void mouseExited(MouseEvent anEvent) {
-	    }
-	
-	    public void mousePressed(MouseEvent anEvent) {
-	    }
-	
-	    public void mouseReleased(MouseEvent anEvent) {
-	    }
 	}
 	
 	protected void addPopupListenerToImage(JLabel imageLabel) {
@@ -79,13 +89,24 @@ public class CustomPopupMenu extends JPopupMenu {
 	
 	/* Right now right click will exit. Later it'll bring up a menu
 	 * that has the option to exit as well as other stuff.
+	 * 
+	 * Alright, now it brings up a menu.
 	 */
-	private void showPopup(MouseEvent anEvent) {
+	private void showPopupMenu(MouseEvent anEvent) {
 		if (anEvent.getButton() == MouseEvent.BUTTON3) { // BUTTON3 is right click
 			CustomPopupMenu menu = new CustomPopupMenu();
 			menu.show(anEvent.getComponent(), anEvent.getX(), anEvent.getY());
 		}
 	}
-
+	
+	/*
+	 * Ideally this is the separate window that shows the stats and stuff
+	 */
+	private void showStateWindow() {
+		JOptionPane.showMessageDialog(frame,
+			    "Someday I'll add the stats here or something.",
+			    "Current Stats",
+			    JOptionPane.PLAIN_MESSAGE);
+	}
 	
 }
