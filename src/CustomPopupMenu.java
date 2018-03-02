@@ -28,7 +28,7 @@ import javax.swing.JFrame;
 public class CustomPopupMenu extends JPopupMenu {
 	JPopupMenu popup;
 	JFrame frame;
-	static Status stats;
+	Status stats;
 	
 	public CustomPopupMenu() {
 		// Initialize various menu options
@@ -103,8 +103,12 @@ public class CustomPopupMenu extends JPopupMenu {
 	 * Ideally this is the separate window that shows the stats and stuff
 	 */
 	private void showStateWindow() {
+		stats = new Status();
 		JOptionPane.showMessageDialog(frame,
-			    "Someday I'll add the stats here or something.",
+			    "Health: " + stats.getHealth() + "\n" +
+			    "Hunger: " + stats.getHunger() + "\n" +
+			    "Bowels: " + stats.getBowels() + "\n" +
+			    "Happiness: " + stats.getHappiness() + "\n",
 			    "Current Stats",
 			    JOptionPane.PLAIN_MESSAGE);
 	}

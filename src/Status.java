@@ -28,38 +28,32 @@ public class Status implements Serializable {
 	// I want to add methods that update the status when various actions are performed. And also
 	// it should save it in a file somewhere. I guess. I don't know how it all works yet.
 	
-	public Status (Digimon digimon) {
-		this.digimon = digimon;
-	}
+//	protected Status () {
+//		setNewState();
+//	}
 	
 	/* Stats you start with with a brand new digimon/thingy */
 	public void setNewState() {
-		this.health = 100;
-		this.hunger = 50;
-		this.bowels = 0;
-		this.happiness = 50;
-	}
-	public void showState() {
-		JOptionPane.showMessageDialog(frame,
-			    "Eggs are not supposed to be green.",
-			    "Inane custom dialog",
-			    JOptionPane.INFORMATION_MESSAGE);
+		health = 100;
+		hunger = 50;
+		bowels = 0;
+		happiness = 50;
 	}
 	
-	public int getHealth(int health) {
-		return health;
+	public int getHealth() {
+		return this.health;
 	}
 	
-	public int getHunger(int hunger) {
-		return hunger;
+	public int getHunger() {
+		return this.hunger;
 	}
 	
-	public int getBowels(int bowels) {
-		return bowels;
+	public int getBowels() {
+		return this.bowels;
 	}
 	
-	public int getHappiness(int happiness) {
-		return happiness;
+	public int getHappiness() {
+		return this.happiness;
 	}
 	
 	/* TODO: Set restrictions on input. User doesn't actually input data themselves,

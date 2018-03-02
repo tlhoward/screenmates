@@ -36,7 +36,8 @@ public class Screenmates extends JWindow {
 			public void run() {			
 				guilmon = new Digimon();
 				guilmon.initDigimon();
-//				stats.setNewState();
+				stats = new Status();
+				stats.setNewState();
 				guilmon.setVisible(true);
 				start();
 			}
