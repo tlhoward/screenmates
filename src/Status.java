@@ -20,10 +20,10 @@ public class Status implements Serializable {
 	JFrame frame;
 	
 	// Various stats for digimon. Not sure what to put here yet.
-	private int health;
-	private int hunger; // 0 not hungry, 100 very hungry!
-	private int bowels;
-	private int happiness; // 0 sad, 100 happy
+	private static int health;
+	private static int hunger; // 0 not hungry, 100 very hungry!
+	private static int bowels;
+	private static int happiness; // 0 sad, 100 happy
 	
 	// I want to add methods that update the status when various actions are performed. And also
 	// it should save it in a file somewhere. I guess. I don't know how it all works yet.
@@ -40,20 +40,20 @@ public class Status implements Serializable {
 		happiness = 50;
 	}
 	
-	public int getHealth() {
-		return this.health;
+	public static int getHealth() {
+		return health;
 	}
 	
-	public int getHunger() {
-		return this.hunger;
+	public static int getHunger() {
+		return hunger;
 	}
 	
-	public int getBowels() {
-		return this.bowels;
+	public static int getBowels() {
+		return bowels;
 	}
 	
-	public int getHappiness() {
-		return this.happiness;
+	public static int getHappiness() {
+		return happiness;
 	}
 	
 	/* TODO: Set restrictions on input. User doesn't actually input data themselves,
