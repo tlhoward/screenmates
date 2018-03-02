@@ -20,7 +20,7 @@ public class Digimon extends JWindow {
 	// Initializes a digimon, though it's only guilmon right now
 	protected void initDigimon() {
 		
-		loadDigimonImage("guilmon_stand(idle).gif");
+		loadDigimonImage("/guilmon/animated_gifs/guilmon_stand(idle).gif");
 		initComponents();
 
 		// Set window properties

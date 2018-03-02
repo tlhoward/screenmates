@@ -35,9 +35,9 @@ public class DigimonActions {
 		timer = new Timer(delay, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(newX >= x)
-					digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_walk_right.gif")));
+					digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk_right.gif")));
 				else
-					digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_walk.gif")));
+					digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk.gif")));
 				idleWalkHelper(evt);
 			}
 		});
@@ -58,7 +58,7 @@ public class DigimonActions {
 			digimon.setNewLocation(x, y);
 			if( newX < x) {
 				((Timer)evt.getSource()).stop();
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle)_right.gif")));
+				digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle)_right.gif")));
 			}
 		}
 		else if (newX < x) {
@@ -66,18 +66,18 @@ public class DigimonActions {
 			digimon.setNewLocation(x, y);
 			if( newX > x) {
 				((Timer)evt.getSource()).stop();
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
+				digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
 			}
 
 		}
 		else { // new position ends up being the same as old position. just have him stand there.
 			((Timer)evt.getSource()).stop();
-			digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
+			digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
 		}
 	}
 	
 	protected void idleStand() {
-		digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
+		digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
 	}
 	
 	protected static void feed() {
