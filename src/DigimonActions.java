@@ -29,7 +29,6 @@ public class DigimonActions {
 	}
 	
 	protected void idleWalk() {
-
 		rand = new Random();
 		delay = 500; // 15000 milliseconds, 15 seconds
 		newX = rand.nextInt(1600);
@@ -51,7 +50,6 @@ public class DigimonActions {
 		// every time
 		// also switch directions every so often. have that be random too
 		// walk different distances as well. set x as random number, keep y same
-
 	
 		// if digimon's new location is larger than old location, then it will need
 		// to walk right. add to x until it reaches new position
@@ -82,12 +80,16 @@ public class DigimonActions {
 		digimon.setDigimonImage(new ImageIcon(getClass().getResource("guilmon_stand(idle).gif")));
 	}
 	
-	protected void sleep() {
+	protected static void feed() {
+		Status.setHealth(10);
+		//insert feeding animation here. he will eat random bread.
+	}
+	
+	protected static void sleep() {
 		// update status by increasing health maybe. Or add something else.
 		// I need to figure it out and add it later
 		//digimon.setDigimonImage(image);
 	}
-	
 	
 	
 	/*
@@ -100,7 +102,6 @@ public class DigimonActions {
 	 * This is where we're supposed to try and drag the little digimon across the screen,
 	 * but cant figure out out god
 	 */
-	
 	protected class MyListener extends Component implements MouseListener, MouseMotionListener {
 		
 		JLabel imageLabel;

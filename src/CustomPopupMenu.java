@@ -44,9 +44,10 @@ public class CustomPopupMenu extends JPopupMenu {
 				JMenuItem source = (JMenuItem)(event.getSource());
 				if(source == exitOption)
 					System.exit(0);
-				else if(source == statsOption) {
+				else if(source == statsOption)
 					showStateWindow();
-				}
+				else if(source == feedOption)
+					DigimonActions.feed();
 			}
 		};
 		

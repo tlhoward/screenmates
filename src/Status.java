@@ -62,20 +62,20 @@ public class Status implements Serializable {
 	 * special image animation that shows whenever it happens for various stuff.
 	 */
 	
-	public void setHealth(int health) {
-		this.health = health;
+	public static void setHealth(int x) {
+		health += x;
 	}
 	
-	public void setHunger(int hunger) {
-		this.hunger = hunger;
+	public void setHunger(int x) {
+		hunger += x;
 	}
 	
-	public void setBowels(int bowels) {
-		this.bowels = bowels;
+	public static void setBowels(int x) {
+		bowels += x;
 	}
 	
-	public void setHappiness(int happiness) {
-		this.happiness = happiness;
+	public void setHappiness() {
+		this.happiness += happiness;
 	}
 	
 }
