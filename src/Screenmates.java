@@ -54,8 +54,7 @@ public class Screenmates extends JWindow {
 			}
 		});
 		timer.setRepeats(true);
-		timer.start();
-			
+		timer.start();		
 	}
 	
 	private int sleepTime;
