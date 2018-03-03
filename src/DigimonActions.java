@@ -19,7 +19,7 @@ import java.awt.Component;
 
 public class DigimonActions {
 	Digimon digimon = new Digimon();
-	
+
 	public DigimonActions(Digimon digi) {
 		digimon = digi;
 		y = digimon.returnCurrentY();
@@ -28,17 +28,32 @@ public class DigimonActions {
 		digi.returnImageLabel().addMouseListener(mouseListener);
 	}
 	
+	public void beginAnimation() {
+			idleWalk();
+	}
+	
+	
 	protected void idleWalk() {
 		rand = new Random();
-		delay = 500; // 15000 milliseconds, 15 seconds
+		delay = 500; // changes how fast guilmon moves across the screen. half a second atm
 		newX = rand.nextInt(1600);
+		
+		
+		/* This timer runs every 0.5 seconds and moves guilmon across the screen either left or right. Once guilmon
+		 * hits his new position (randomized variable newX) then this timer will stop. 
+		 * After 20 seconds, the timer in Screenmates will run again and trigger this method to make him walk once more.
+		 * 
+		 * What I would like to do later is not use a timer in the Screenmates class, but instead trigger the methods I need
+		 * over in here. That way I can do the idleWalk method, or sleep method, or eat method, etc etc.
+		 */
 		timer = new Timer(delay, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if(newX >= x)
-					digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk_right.gif")));
-				else
-					digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk.gif")));
+				if(newX >= x)		// if guilmon needs to walk to right, load image and go to idleWalkHelper()
+					digimon.imgDigimonWalk("right");
+				else				// same ^^^^
+					digimon.imgDigimonWalk("left");
 				idleWalkHelper(evt);
+
 			}
 		});
 		timer.setRepeats(true);
@@ -46,7 +61,7 @@ public class DigimonActions {
 	}
 	
 	protected void idleWalkHelper(ActionEvent evt) {
-		// change delay to random numbers so digimon wont walk exact same length
+		// newX is a random number so digimon wont walk exact same length
 		// every time
 		// also switch directions every so often. have that be random too
 		// walk different distances as well. set x as random number, keep y same
@@ -58,7 +73,7 @@ public class DigimonActions {
 			digimon.setNewLocation(x, y);
 			if( newX < x) {
 				((Timer)evt.getSource()).stop();
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle)_right.gif")));
+				idleStand("right");
 			}
 		}
 		else if (newX < x) {
@@ -66,18 +81,18 @@ public class DigimonActions {
 			digimon.setNewLocation(x, y);
 			if( newX > x) {
 				((Timer)evt.getSource()).stop();
-				digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
+				idleStand("left");
 			}
 
 		}
 		else { // new position ends up being the same as old position. just have him stand there.
 			((Timer)evt.getSource()).stop();
-			digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
+			idleStand("left");
 		}
 	}
 	
-	protected void idleStand() {
-		digimon.setDigimonImage(new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif")));
+	protected void idleStand(String str) {
+		digimon.imgDigimonIdle(str);
 	}
 	
 	protected static void feed() {
@@ -160,4 +175,5 @@ public class DigimonActions {
 	private int dragX;
 	private int dragY;
 	private boolean leftClickPress = false;
+
 }

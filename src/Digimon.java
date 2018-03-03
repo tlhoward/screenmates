@@ -20,7 +20,6 @@ public class Digimon extends JWindow {
 	// Initializes a digimon, though it's only guilmon right now
 	protected void initDigimon() {
 		
-		loadDigimonImage("/guilmon/animated_gifs/guilmon_stand(idle).gif");
 		initComponents();
 
 		// Set window properties
@@ -36,20 +35,16 @@ public class Digimon extends JWindow {
 
 		int taskbarheight = (int) (Toolkit.getDefaultToolkit().getScreenSize().height 
 			    - GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().getHeight());
-		x = (int) screen.getMaxX() - idleStandingImage.getIconWidth();
-		y = (int) screen.getMaxY() - idleStandingImage.getIconHeight() - taskbarheight;  // right above taskbar		
+		x = (int) screen.getMaxX() - idleStandingImage_left.getIconWidth();
+		y = (int) screen.getMaxY() - idleStandingImage_left.getIconHeight() - taskbarheight;  // right above taskbar		
 		
-		setSize(idleStandingImage.getIconWidth(), idleStandingImage.getIconHeight());
+		setSize(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
 		setLocation(x, y);
 	}
-	
-	private void loadDigimonImage(String string) {
-		idleStandingImage = new ImageIcon(getClass().getResource(string));
-	}
-	
+		
     private void initComponents() {
     	contentPane = (JPanel) getContentPane();
-        imageLabel = new JLabel(idleStandingImage);		// set initial image to imageLabel
+        imageLabel = new JLabel(idleStandingImage_left);		// set initial image to imageLabel
         CustomPopupMenu popup = new CustomPopupMenu();
         popup.addPopupListenerToImage(imageLabel);		// add mouse listener to imageLabel
         contentPane.add(imageLabel);
@@ -79,15 +74,27 @@ public class Digimon extends JWindow {
     protected void setNewLocation(int newX, int newY) {
     	setLocation(newX,newY);
     }
+        
+    protected void imgDigimonIdle(String side) {
+    	if (side == "left")
+    		imageLabel.setIcon(idleStandingImage_left);
+    	else
+    		imageLabel.setIcon(idleStandingImage_right);
+    }
     
-    protected void setDigimonImage(ImageIcon image) {
-    	imageLabel.setIcon(image);
+    protected void imgDigimonWalk(String side) {
+    	if (side == "left")
+    		imageLabel.setIcon(walkingImage_left);
+    	else
+    		imageLabel.setIcon(walkingImage_right);    	
     }
     
 	// variables declaration
-	private ImageIcon idleStandingImage;		// idle while standing
+	private ImageIcon idleStandingImage_left = new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle).gif"));		// idle while standing
+	private ImageIcon idleStandingImage_right = new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_stand(idle)_right.gif"));
 	private ImageIcon idleSittingImage;			// idle while sitting
-	private ImageIcon walkingImage;
+	private ImageIcon walkingImage_left = new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk.gif"));
+	private ImageIcon walkingImage_right = new ImageIcon(getClass().getResource("/guilmon/animated_gifs/guilmon_walk_right.gif"));
 	private Rectangle digimonBounds = new Rectangle();
 	private Timer timer;
 	private JLabel imageLabel;
