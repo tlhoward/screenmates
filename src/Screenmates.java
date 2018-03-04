@@ -46,11 +46,8 @@ public class Screenmates extends JWindow {
 	
 	public static void start() {
 		DigimonActions guilmonActions = new DigimonActions(guilmon);
-
-				guilmonActions.beginAction("walk");	
+		guilmonActions.beginAction("walk");	
 	}
-	
-	private int sleepTime;
 	
     private void SaveDigimonState() {
     	try {
