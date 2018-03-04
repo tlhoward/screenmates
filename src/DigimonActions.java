@@ -19,6 +19,7 @@ import java.awt.Component;
 
 public class DigimonActions {
 	Digimon digimon = new Digimon();
+	Boolean blah = true;
 
 	public DigimonActions(Digimon digi) {
 		digimon = digi;
@@ -28,8 +29,10 @@ public class DigimonActions {
 		digi.returnImageLabel().addMouseListener(mouseListener);
 	}
 	
-	public void beginAnimation() {
+	public void beginAnimation(String action) {
+		if(action.equals("walk")) {
 			idleWalk();
+		}
 	}
 	
 	
@@ -37,6 +40,7 @@ public class DigimonActions {
 		rand = new Random();
 		delay = 500; // changes how fast guilmon moves across the screen. half a second atm
 		newX = rand.nextInt(1600);
+		int delayBetweenWalking = rand.nextInt(15000);
 		
 		
 		/* This timer runs every 0.5 seconds and moves guilmon across the screen either left or right. Once guilmon
@@ -53,10 +57,10 @@ public class DigimonActions {
 				else				// same ^^^^
 					digimon.imgDigimonWalk("left");
 				idleWalkHelper(evt);
-
 			}
 		});
 		timer.setRepeats(true);
+		timer.setInitialDelay(delayBetweenWalking);
 		timer.start();
 	}
 	
@@ -68,12 +72,15 @@ public class DigimonActions {
 	
 		// if digimon's new location is larger than old location, then it will need
 		// to walk right. add to x until it reaches new position
+		String str = "right";
 		if(newX > x) {
 			x += 25;
 			digimon.setNewLocation(x, y);
 			if( newX < x) {
 				((Timer)evt.getSource()).stop();
 				idleStand("right");
+				str = "right";
+				beginAnimation("walk");
 			}
 		}
 		else if (newX < x) {
@@ -82,12 +89,15 @@ public class DigimonActions {
 			if( newX > x) {
 				((Timer)evt.getSource()).stop();
 				idleStand("left");
+				str = "left";
+				beginAnimation("walk");
 			}
 
 		}
-		else { // new position ends up being the same as old position. just have him stand there.
+		else { // new position ends up being the same as old position. just have him stand there. Then 
 			((Timer)evt.getSource()).stop();
-			idleStand("left");
+			idleStand(str);
+			beginAnimation("walk");
 		}
 	}
 	
@@ -98,6 +108,7 @@ public class DigimonActions {
 	protected static void feed() {
 		Status.setHealth(10);
 		//insert feeding animation here. he will eat random bread.
+		//also needs to stop walk animation if it's in the middle of it and restart the delay timer in Screenmates? 
 	}
 	
 	protected static void sleep() {

@@ -46,15 +46,8 @@ public class Screenmates extends JWindow {
 	
 	public static void start() {
 		DigimonActions guilmonActions = new DigimonActions(guilmon);
-		
-		int delay = 20000;	// how long in between triggering guilmonActions.beginAnimation();
-		Timer timer = new Timer(delay, new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				guilmonActions.beginAnimation();
-			}
-		});
-		timer.setRepeats(true);
-		timer.start();		
+
+				guilmonActions.beginAnimation("walk");	
 	}
 	
 	private int sleepTime;
