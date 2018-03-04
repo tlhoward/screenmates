@@ -66,6 +66,7 @@ public class CustomPopupMenu extends JPopupMenu {
 			if (anEvent.getSource() == imageLabel) { 	// if image is clicked, show pop up
 				showPopupMenu(anEvent);
 			}
+			
 		}
 	
 	}

@@ -16,11 +16,10 @@ import javax.swing.Timer;
 
 
 public class Digimon extends JWindow {
-
+	
 	// Initializes a digimon, though it's only guilmon right now. Ideally we can choose what digimon to start off with,
 	// so then we can load all of the correct images in this class and not have to worry about the others.
 	protected void initDigimon() {
-		
 		initComponents();
 
 		// Set window properties

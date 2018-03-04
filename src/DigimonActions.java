@@ -19,7 +19,6 @@ import java.awt.Component;
 
 public class DigimonActions {
 	Digimon digimon = new Digimon();
-	Boolean blah = true;
 
 	public DigimonActions(Digimon digi) {
 		digimon = digi;
@@ -29,7 +28,7 @@ public class DigimonActions {
 		digi.returnImageLabel().addMouseListener(mouseListener);
 	}
 	
-	public void beginAnimation(String action) {
+	public void beginAction(String action) {
 		if(action.equals("walk")) {
 			idleWalk();
 		}
@@ -40,15 +39,14 @@ public class DigimonActions {
 		rand = new Random();
 		delay = 500; // changes how fast guilmon moves across the screen. half a second atm
 		newX = rand.nextInt(1600);
-		int delayBetweenWalking = rand.nextInt(15000);
+		delayBeforeWalking = rand.nextInt(15000);
 		
 		
 		/* This timer runs every 0.5 seconds and moves guilmon across the screen either left or right. Once guilmon
 		 * hits his new position (randomized variable newX) then this timer will stop. 
-		 * After 20 seconds, the timer in Screenmates will run again and trigger this method to make him walk once more.
 		 * 
-		 * What I would like to do later is not use a timer in the Screenmates class, but instead trigger the methods I need
-		 * over in here. That way I can do the idleWalk method, or sleep method, or eat method, etc etc.
+		 * setInitialDelay(delayBetweenWalking) will allow the digimon to pause for a random amount of time (0-15 seconds) 
+		 * before walking across the screen.
 		 */
 		timer = new Timer(delay, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -60,7 +58,7 @@ public class DigimonActions {
 			}
 		});
 		timer.setRepeats(true);
-		timer.setInitialDelay(delayBetweenWalking);
+		timer.setInitialDelay(delayBeforeWalking);
 		timer.start();
 	}
 	
@@ -80,7 +78,7 @@ public class DigimonActions {
 				((Timer)evt.getSource()).stop();
 				idleStand("right");
 				str = "right";
-				beginAnimation("walk");
+				beginAction("walk"); //call walk action one complete
 			}
 		}
 		else if (newX < x) {
@@ -90,14 +88,14 @@ public class DigimonActions {
 				((Timer)evt.getSource()).stop();
 				idleStand("left");
 				str = "left";
-				beginAnimation("walk");
+				beginAction("walk");
 			}
 
 		}
 		else { // new position ends up being the same as old position. just have him stand there. Then 
 			((Timer)evt.getSource()).stop();
 			idleStand(str);
-			beginAnimation("walk");
+			beginAction("walk");
 		}
 	}
 	
@@ -177,6 +175,7 @@ public class DigimonActions {
 	
 	
 	private Random rand;
+	private int delayBeforeWalking;
 	private int newX;
 	private int newY;
 	private int delay;
