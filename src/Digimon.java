@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ import javax.swing.JWindow;
 import javax.swing.Timer;
 
 
-public class Digimon extends JWindow {
+public class Digimon extends JWindow{
 	
 	// Initializes a digimon, though it's only guilmon right now. Ideally we can choose what digimon to start off with,
 	// so then we can load all of the correct images in this class and not have to worry about the others.
@@ -27,6 +28,7 @@ public class Digimon extends JWindow {
 		setBackground(new Color(0,0,0,0));
 		setAlwaysOnTop(true);
 		contentPane.setOpaque(false);
+//        setBackground(Color.YELLOW);
 
 		// Get size of user's screen
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -38,8 +40,10 @@ public class Digimon extends JWindow {
 		x = (int) screen.getMaxX() - idleStandingImage_left.getIconWidth();
 		y = (int) screen.getMaxY() - idleStandingImage_left.getIconHeight() - taskbarheight;  // right above taskbar		
 		
-		setSize(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
-		setLocation(x, y);
+//		setSize(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
+		setLocation(0, 0);
+		setSize((int)screen.getMaxX(), (int)screen.getMaxY());
+
 	}
 		
     private void initComponents() {
@@ -47,7 +51,13 @@ public class Digimon extends JWindow {
         imageLabel = new JLabel(idleStandingImage_left);		// set initial image to imageLabel
         CustomPopupMenu popup = new CustomPopupMenu();
         popup.addPopupListenerToImage(imageLabel);		// add mouse listener to imageLabel
+        MouseHandler mh = new MouseHandler();
+        imageLabel.addMouseListener(mh);
+        imageLabel.addMouseMotionListener(mh);
+//        contentPane.addMouseListener(mh);
+//        contentPane.addMouseMotionListener(mh);
         contentPane.add(imageLabel);
+        imageLabel.setLocation(x, y);
 
         pack();
     }
