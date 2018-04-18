@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -27,7 +28,7 @@ public class Digimon extends JWindow{
 		getRootPane().putClientProperty("Window.shadow", false);
 		setBackground(new Color(0,0,0,0));
 		setAlwaysOnTop(true);
-		contentPane.setOpaque(false);
+		contentPane.setOpaque(true);
 //        setBackground(Color.YELLOW);
 
 		// Get size of user's screen
@@ -43,23 +44,32 @@ public class Digimon extends JWindow{
 //		setSize(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
 		setLocation(0, 0);
 		setSize((int)screen.getMaxX(), (int)screen.getMaxY());
+//		pack();
 
 	}
 		
     private void initComponents() {
+    	Dimension d = new Dimension(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
+    	
     	contentPane = (JPanel) getContentPane();
         imageLabel = new JLabel(idleStandingImage_left);		// set initial image to imageLabel
+        
         CustomPopupMenu popup = new CustomPopupMenu();
         popup.addPopupListenerToImage(imageLabel);		// add mouse listener to imageLabel
+        
         MouseHandler mh = new MouseHandler();
         imageLabel.addMouseListener(mh);
         imageLabel.addMouseMotionListener(mh);
 //        contentPane.addMouseListener(mh);
 //        contentPane.addMouseMotionListener(mh);
+//        pack();
+        contentPane.setPreferredSize(d);
         contentPane.add(imageLabel);
         imageLabel.setLocation(x, y);
 
-        pack();
+
+
+//        pack();
     }
     
     protected JLabel returnImageLabel() {
@@ -109,6 +119,7 @@ public class Digimon extends JWindow{
 	private Timer timer;
 	private JLabel imageLabel;
 	private JPanel contentPane;
+	private JFrame frame;
 	
 	private int x, y;
 	
