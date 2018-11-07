@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +66,14 @@ public class Screenmates extends JWindow {
     	SavedState state;
     	InputStream file;
     }
+
     
+/* Creates System Tray Icon and sets up menu.
+ * Left click icon to make digimon visible or not visible on desktop.
+ * Program is still running in the "background" even when not visible.
+ * 
+ * TODO: have pop-up notifications when stuff happens. Maybe only when digimon isnt visible?
+ */
     private static void createAndShowSystemTrayIcon() {
         //Check the SystemTray is supported
         if (!SystemTray.isSupported()) {
@@ -77,21 +86,18 @@ public class Screenmates extends JWindow {
         final TrayIcon trayIcon = new TrayIcon(image, "Screenmate", popup);
         final SystemTray tray = SystemTray.getSystemTray();
         trayIcon.setImageAutoSize(true);
-
-       
+   
         // Create a pop-up menu components
         MenuItem aboutItem = new MenuItem("About");
-
-        MenuItem exitOption = new MenuItem("Exit");
+        MenuItem exitItem = new MenuItem("Exit");
        
         //Add components to pop-up menu
         popup.add(aboutItem);
         popup.addSeparator();
         popup.addSeparator();
-
-        popup.add(exitOption);
+        popup.add(exitItem);
          
-        exitOption.addActionListener(new ActionListener() {
+        exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 tray.remove(trayIcon);
                 System.exit(0);
@@ -99,6 +105,16 @@ public class Screenmates extends JWindow {
         });
        
         trayIcon.setPopupMenu(popup);
+        trayIcon.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		if (e.getButton() == MouseEvent.BUTTON1 && guilmon.isVisible()) {
+        			guilmon.setVisible(false);
+        		}
+        		else
+        			guilmon.setVisible(true);
+        	}
+        });
        
         try {
             tray.add(trayIcon);
