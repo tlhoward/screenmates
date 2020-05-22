@@ -8,6 +8,7 @@ import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -20,14 +21,6 @@ public class Digimon extends JWindow {
 	// Initializes a digimon, though it's only guilmon right now. Ideally we can choose what digimon to start off with,
 	// so then we can load all of the correct images in this class and not have to worry about the others.
 	protected void initDigimon() {
-		initComponents();
-
-		// Set window properties
-		getRootPane().putClientProperty("Window.shadow", false);
-		setBackground(new Color(0,0,0,0));
-		setAlwaysOnTop(true);
-		contentPane.setOpaque(false);
-
 		// Get size of user's screen
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
@@ -38,16 +31,29 @@ public class Digimon extends JWindow {
 		x = (int) screen.getMaxX() - idleStandingImage_left.getIconWidth();
 		y = (int) screen.getMaxY() - idleStandingImage_left.getIconHeight() - taskbarheight;  // right above taskbar		
 		
-		setSize(idleStandingImage_left.getIconWidth(), idleStandingImage_left.getIconHeight());
-		setLocation(x, y);
+		initComponents();
+
+		// Set window properties
+		getRootPane().putClientProperty("Window.shadow", false);
+		setBackground(new Color(0,0,0,0));
+		setAlwaysOnTop(true);
+		contentPane.setOpaque(false);
+		
+		setSize((int) screen.getMaxX(), (int) screen.getMaxY() - taskbarheight);
+		//setLocation(0, 0);
 	}
 		
     private void initComponents() {
     	contentPane = (JPanel) getContentPane();
+    	contentPane.setLayout(null);
         imageLabel = new JLabel(idleStandingImage_left);		// set initial image to imageLabel
+        Dimension size = imageLabel.getPreferredSize();
+        imageLabel.setBounds(x, y, size.width, size.height);
         CustomPopupMenu popup = new CustomPopupMenu();
         popup.addPopupListenerToImage(imageLabel);		// add mouse listener to imageLabel
+        imageLabel.setLocation(x, y);        
         contentPane.add(imageLabel);
+
 
         pack();
     }
@@ -72,7 +78,7 @@ public class Digimon extends JWindow {
     }
     
     protected void setNewLocation(int newX, int newY) {
-    	setLocation(newX,newY);
+    	imageLabel.setLocation(newX,newY);
     }
         
     protected void imgDigimonIdle(String side) {
@@ -99,6 +105,8 @@ public class Digimon extends JWindow {
 	private Timer timer;
 	private JLabel imageLabel;
 	private JPanel contentPane;
+	
+	private static JFrame frame = new javax.swing.JFrame();
 	
 	private int x, y;
 	

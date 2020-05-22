@@ -72,7 +72,7 @@ public class DigimonActions {
 		// to walk right. add to x until it reaches new position
 		String str = "right";
 		if(newX > x) {
-			x += 25;
+			x += 20;
 			digimon.setNewLocation(x, y);
 			if( newX < x) {
 				((Timer)evt.getSource()).stop();
@@ -82,7 +82,7 @@ public class DigimonActions {
 			}
 		}
 		else if (newX < x) {
-			x -= 25;
+			x -= 20;
 			digimon.setNewLocation(x, y);
 			if( newX > x) {
 				((Timer)evt.getSource()).stop();
